@@ -3,14 +3,18 @@ import './App.css';
 import TestComponent from "./components/TestComponent";
 import React from 'react';
 import MovieList from './components/MovieList';
-import 'antd/dist/antd.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {myKey, myToken} from './mykey';
+import NowPlaying from './components/NowPlaying';
+
+
 
 function App() {
   return (
     <div className="container mt-5">
       <h1 className="text-center mb-4">Movie Explorer</h1>
-      <MovieList /> {/* Call the MovieList component here */}
+      <NowPlaying />
+  
     </div>
   );
 }
