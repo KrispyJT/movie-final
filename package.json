@@ -1,5 +1,6 @@
 {
   "name": "template-react",
+  "homepage": "http://krispyjt.github.io/movie-final",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -60,6 +61,7 @@
   },
   "devDependencies": {
     "concurrently": "^7.3.0",
+    "cross-env": "^7.0.3",
     "cypress-react-selector": "^3.0.0",
     "gh-pages": "^5.0.0",
     "start-server-and-test": "^1.14.0"
