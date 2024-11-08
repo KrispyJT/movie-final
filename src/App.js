@@ -1,33 +1,30 @@
 import logo from './logo.svg';
 import './App.css';
 import TestComponent from "./components/TestComponent";
-
-const Comp = () => {
-  return <p>This is a comp component</p>
-}
+import React from 'react';
+import MovieList from './components/MovieList';
+import 'antd/dist/antd.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
-    <div className="App" id='root'>
-            <TestComponent />
-
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <Comp />
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container mt-5">
+      <h1 className="text-center mb-4">Movie Explorer</h1>
+      <MovieList /> {/* Call the MovieList component here */}
     </div>
   );
 }
 
 export default App;
+
+// function App() {
+//   return (
+//     <div className="container mt-5">
+//     <h1 className="text-center mb-4">Movie Explorer</h1>
+//     <MovieList />
+//   </div>
+// );
+   
+// }
+
+// export default App;

@@ -22,4 +22,5 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .idea
+# They wont see the mykey.js file, so in documentation I will tell them to create a file called mykey.js in the src folder and add the following code, provide them the key.
 src/mykey.js
