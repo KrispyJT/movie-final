@@ -6,16 +6,21 @@ import MovieList from './components/MovieList';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {myKey, myToken} from './mykey';
 import NowPlaying from './components/NowPlaying';
+import Header from './components/Header';
+import MovieImage from './components/MovieImage';
+import Footer from './components/Footer';
 
 
 
 function App() {
   return (
     <div className="container mt-5">
+      <Header />
       <h1 className="text-center mb-4">Movie Explorer</h1>
       <NowPlaying />
-  
+      <Footer />
     </div>
+
   );
 }
 
