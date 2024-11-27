@@ -1,11 +1,18 @@
 // // MovieCard.js
 // MovieCard.js
-import React, { useState, useEffect } from 'react';
-import Card from 'react-bootstrap/Card';
 
+import React from 'react';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
 
 const MovieCard = ({ movie }) => {
   const { title, overview, poster_path, release_date, vote_average } = movie;
+
+  const handleAction = (status) => {
+    const storedMovies = JSON.parse(localStorage.getItem('movieStatus')) || {};
+    storedMovies[title] = status;
+    localStorage.setItem('movieStatus', JSON.stringify(storedMovies));
+  };
 
   return (
     <Card style={{ width: '18rem', margin: '10px' }}>
@@ -17,12 +24,60 @@ const MovieCard = ({ movie }) => {
           <strong>Rating:</strong> {vote_average} / 10 <br />
           {overview.substring(0, 100)}...
         </Card.Text>
+        <div>
+          <Button variant="success" onClick={() => handleAction('Seen It')} className="m-1">
+            Seen It
+          </Button>
+          <Button variant="primary" onClick={() => handleAction('Want to See')} className="m-1">
+            Want to See
+          </Button>
+          <Button variant="secondary" onClick={() => handleAction('Not Interested')} className="m-1">
+            Not Interested
+          </Button>
+        </div>
       </Card.Body>
     </Card>
   );
 };
 
 export default MovieCard;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import React, { useState, useEffect } from 'react';
+// import Card from 'react-bootstrap/Card';
+
+
+// const MovieCard = ({ movie }) => {
+//   const { title, overview, poster_path, release_date, vote_average } = movie;
+
+//   return (
+//     <Card style={{ width: '18rem', margin: '10px' }}>
+//       <Card.Img variant="top" src={`https://image.tmdb.org/t/p/w500${poster_path}`} alt={title} />
+//       <Card.Body>
+//         <Card.Title>{title}</Card.Title>
+//         <Card.Text>
+//           <strong>Release Date:</strong> {release_date} <br />
+//           <strong>Rating:</strong> {vote_average} / 10 <br />
+//           {overview.substring(0, 100)}...
+//         </Card.Text>
+//       </Card.Body>
+//     </Card>
+//   );
+// };
+
+// export default MovieCard;
 
 
 
