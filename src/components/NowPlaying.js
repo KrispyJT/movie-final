@@ -1,46 +1,46 @@
 // NowPlaying.js
 
-// NowPlaying.js
-// import React from 'react';
-// import MovieList from './MovieList';
-// import useFetchMovies from '../hooks/useFetchMovies';
-
-// const NowPlaying = () => {
-//   const { movies, error } = useFetchMovies();
-
-//   if (error) return <p>Error: {error}</p>;
-
-//   return (
-//     <div>
-//       <h2>Now Playing in Theaters</h2>
-//       <MovieList movieList={movies} />
-//     </div>
-//   );
-// };
-
-// export default NowPlaying;
-
-
-
-// NowPlaying.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import MovieList from './MovieList';
-import useFetchMovies from './useFetchMovies';
+import { myToken } from '../mykey'; 
 
-const NowPlaying = () => {
-  const { movies, error } = useFetchMovies();
+const NowPlaying = ({ selectedGenres }) => {
+  const [movies, setMovies] = useState([]);
 
-  if (error) return <p>Error: {error}</p>;
+  useEffect(() => {
+    const options = {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${myToken}`, // Replace with your TMDB token
+      },
+    };
+
+    fetch('https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1', options)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Now Playing Movies:', data.results);
+        setMovies(data.results || []);
+      })
+      .catch((err) => console.error('Error fetching movies:', err));
+  }, []);
+
+  // Filter movies based on selected genres
+  const filteredMovies = selectedGenres.length
+    ? movies.filter((movie) => movie.genre_ids.some((id) => selectedGenres.includes(id)))
+    : movies;
 
   return (
     <div>
-      <h2 style={{ textAlign: 'center', margin: '20px 0' }}>Now Playing in Theaters</h2>
-      <MovieList movieList={movies} />
+      <h3>Now Playing</h3>
+      <MovieList movies={filteredMovies} />
     </div>
   );
 };
 
 export default NowPlaying;
+
+
 
 
 

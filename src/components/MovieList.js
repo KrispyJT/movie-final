@@ -67,19 +67,22 @@
 
 
 
-// MovieList.js
 import React from 'react';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import MovieCard from './MovieCard';
-// For styling the layout
 
-const MovieList = ({ movieList }) => {
+const MovieList = ({ movies }) => {
   return (
-    <div className="movie-list">
-      {movieList.map((movie) => (
-        <MovieCard key={movie.id} movie={movie} />
+    <Row>
+      {movies.map((movie) => (
+        <Col key={movie.id} xs={12} sm={6} md={4} lg={3}>
+          <MovieCard movie={movie} />
+        </Col>
       ))}
-    </div>
+    </Row>
   );
 };
 
 export default MovieList;
+
