@@ -11,7 +11,7 @@ const Footer = () => (
         style={{ width: '120px' }}
       />
     </a>
-    <p style={{ fontSize: '12px' }}>This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
+    <p style={{ fontSize: '12px' }}>This project uses the TMDB API and isn't endorsed or certified by TMDB.</p>
   </footer>
 );
 

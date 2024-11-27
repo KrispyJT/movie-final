@@ -64,3 +64,22 @@
 //     );
 //   };
 //   export default MovieList;
+
+
+
+// MovieList.js
+import React from 'react';
+import MovieCard from './MovieCard';
+// For styling the layout
+
+const MovieList = ({ movieList }) => {
+  return (
+    <div className="movie-list">
+      {movieList.map((movie) => (
+        <MovieCard key={movie.id} movie={movie} />
+      ))}
+    </div>
+  );
+};
+
+export default MovieList;

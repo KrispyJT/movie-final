@@ -11,7 +11,6 @@ import MovieImage from './components/MovieImage';
 import Footer from './components/Footer';
 
 
-
 function App() {
   return (
     <div className="container mt-5">
@@ -20,11 +19,29 @@ function App() {
       <NowPlaying />
       <Footer />
     </div>
-
   );
 }
 
 export default App;
+
+
+
+
+
+
+// function App() {
+//   return (
+//     <div className="container mt-5">
+//       <Header />
+//       <h1 className="text-center mb-4">Movie Explorer</h1>
+//       <NowPlaying />
+//       <Footer />
+//     </div>
+
+//   );
+// }
+
+// export default App;
 
 // function App() {
 //   return (
@@ -37,3 +54,6 @@ export default App;
 // }
 
 // export default App;
+// https://react-bootstrap.netlify.app/docs/components/images
+// https://react-bootstrap.netlify.app/docs/components/cards
+// https://www.themoviedb.org/about/logos-attribution
