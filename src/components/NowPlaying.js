@@ -2,7 +2,8 @@ import React from 'react';
 import useFetch from './useFetch';
 import MovieList from './MovieList';
 
-const NowPlaying = ({ selectedGenres }) => {
+
+const NowPlaying = ({ selectedGenres, onStatusChange }) => {
   const { movies } = useFetch(); // Fetch now-playing movies from useFetch
 
   if (!movies) return <p>Loading movies...</p>;
@@ -15,7 +16,7 @@ const NowPlaying = ({ selectedGenres }) => {
   return (
     <div>
       <h3>Now Playing</h3>
-      <MovieList movies={filteredMovies} />
+      <MovieList movies={filteredMovies} onStatusChange={onStatusChange} />
     </div>
   );
 };

@@ -1,30 +1,62 @@
-// MovieAccordian.js 
-
 import React from 'react';
 import Accordion from 'react-bootstrap/Accordion';
-import MovieImage from './MovieImage';
 
-const MovieAccordion = ( { movies } ) => {
+const MovieAccordion = ( { seenIt, wantToSee, notInterested } ) => {
   return (
-    <Accordion>
-      {movies.map((movie, index) => (
-        <Accordion.Item eventKey={index.toString()} key={movie.id}>
-          <Accordion.Header>{movie.title}</Accordion.Header>
+    <>
+    <div className="mt-5">
+      <h2>Your Movies</h2>
+      <Accordion>
+        {/* "Seen It" Section */}
+        <Accordion.Item eventKey="0">
+          <Accordion.Header>
+            Seen It ({seenIt.length})
+          </Accordion.Header>
           <Accordion.Body>
-            <p><strong>Release Date:</strong> {movie.release_date}</p>
-            <p><strong>Overview:</strong> {movie.overview}</p>
-            {movie.poster_path && (
-              <MovieImage
-              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-              alt={movie.title}
-              width="100%" // Full width of the container
-              height="300px" // Adjust the height to fit nicely in the accordion
-            />
-            )}
+            <ul>
+              {seenIt.length > 0 ? (
+                seenIt.map((title) => <li key={title}>{title}</li>)
+              ) : (
+                <p>No movies in this category yet.</p>
+              )}
+            </ul>
           </Accordion.Body>
         </Accordion.Item>
-      ))}
-    </Accordion>
+
+        {/* "Want to See" Section */}
+        <Accordion.Item eventKey="1">
+          <Accordion.Header>
+            Want to See ({wantToSee.length})
+          </Accordion.Header>
+          <Accordion.Body>
+            <ul>
+              {wantToSee.length > 0 ? (
+                wantToSee.map((title) => <li key={title}>{title}</li>)
+              ) : (
+                <p>No movies in this category yet.</p>
+              )}
+            </ul>
+          </Accordion.Body>
+        </Accordion.Item>
+
+        {/* "Not Interested" Section */}
+        <Accordion.Item eventKey="2">
+          <Accordion.Header>
+            Not Interested ({notInterested.length})
+          </Accordion.Header>
+          <Accordion.Body>
+            <ul>
+              {notInterested.length > 0 ? (
+                notInterested.map((title) => <li key={title}>{title}</li>)
+              ) : (
+                <p>No movies in this category yet.</p>
+              )}
+            </ul>
+          </Accordion.Body>
+        </Accordion.Item>
+      </Accordion>
+    </div>
+    </>
   );
 };
 
