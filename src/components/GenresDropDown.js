@@ -30,7 +30,9 @@ const GenresDropDown = ({ onGenresChange }) => {
   const { genres } = useFetch(); // Fetch genres from useFetch
 
   const [selectedGenres, setSelectedGenres] = useState([]); // Track selected genres
+  const [hoveredGenre, setHoveredGenre] = useState(null); // Track the hovered genre
 
+  
   const handleChange = (event) => {
     const {
       target: { value },
@@ -66,7 +68,16 @@ const GenresDropDown = ({ onGenresChange }) => {
           MenuProps={MenuProps}
         >
           {genres.map((genre) => (
-            <MenuItem key={genre.id} value={genre.id}>
+            <MenuItem 
+              key={genre.id} 
+              value={genre.id}
+              onMouseEnter={() => setHoveredGenre(genre.id)}
+              onMouseLeave={() => setHoveredGenre(null)}
+              style={{
+                backgroundColor: hoveredGenre === genre.id ? '#ddd' : 'inherit',
+                color: hoveredGenre === genre.id ? '#333' : 'inherit',
+              }}
+              >
               <Checkbox checked={selectedGenres.includes(genre.id)} />
               <ListItemText primary={genre.name} />
             </MenuItem>
