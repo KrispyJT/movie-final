@@ -3,8 +3,6 @@
 // https://mui.com/material-ui/getting-started/installation/
 // https://mui.com/material-ui/react-select/
 
-
-
 import React, { useState } from 'react';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
@@ -32,7 +30,7 @@ const GenresDropDown = ({ onGenresChange }) => {
   const [selectedGenres, setSelectedGenres] = useState([]); // Track selected genres
   const [hoveredGenre, setHoveredGenre] = useState(null); // Track the hovered genre
 
-  
+
   const handleChange = (event) => {
     const {
       target: { value },
@@ -77,6 +75,7 @@ const GenresDropDown = ({ onGenresChange }) => {
                 backgroundColor: hoveredGenre === genre.id ? '#ddd' : 'inherit',
                 color: hoveredGenre === genre.id ? '#333' : 'inherit',
               }}
+              aria-labelledby="genre-multi-select-label"
               >
               <Checkbox checked={selectedGenres.includes(genre.id)} />
               <ListItemText primary={genre.name} />
