@@ -47,16 +47,22 @@ function App() {
   };
 
   return (
-    <div className="container mt-5">
+    <>
+    
+    <div className='App'>
       <Header />
-      <h1 className="text-center mb-4">Movie Explorer</h1>
-      <GenresDropDown onGenresChange={handleGenresChange} />
-      <NowPlaying selectedGenres={selectedGenres} onStatusChange={handleStatusChange} />
-      <MovieAccordion {...movieCategories} />
+      <div className="sidebar">
+          <GenresDropDown onGenresChange={handleGenresChange} />
+        </div>
+      <div className="container mt-5">
+        <NowPlaying selectedGenres={selectedGenres} onStatusChange={handleStatusChange} />
+        <MovieAccordion {...movieCategories} />
+      </div>
+     
       <Footer />
     </div>
+    </>
   );
 }
 
 export default App;
-

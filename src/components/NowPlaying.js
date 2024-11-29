@@ -4,9 +4,9 @@ import MovieList from './MovieList';
 
 
 const NowPlaying = ({ selectedGenres, onStatusChange }) => {
-  const { movies } = useFetch(); // Fetch now-playing movies from useFetch
+  const { movies } = useFetch(); //  Call useFetch to get movies from the Now Playing API url
 
-  if (!movies) return <p>Loading movies...</p>;
+  if (!movies) return <p>Loading movies...</p>; // Loading
 
   // Filter movies based on selected genres
   const filteredMovies = selectedGenres.length
@@ -14,7 +14,7 @@ const NowPlaying = ({ selectedGenres, onStatusChange }) => {
     : movies;
 
   return (
-    <div>
+    <div className='now-playing-section'>
       <h3>Now Playing</h3>
       <MovieList movies={filteredMovies} onStatusChange={onStatusChange} />
     </div>
@@ -22,3 +22,4 @@ const NowPlaying = ({ selectedGenres, onStatusChange }) => {
 };
 
 export default NowPlaying;
+
