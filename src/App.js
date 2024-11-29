@@ -47,13 +47,10 @@ function App() {
   };
 
   return (
-    <>
-    
+ 
     <div className='App'>
       <Header />
-      <div className="sidebar">
-          <GenresDropDown onGenresChange={handleGenresChange} />
-        </div>
+      <GenresDropDown onGenresChange={handleGenresChange} />
       <div className="container mt-5">
         <NowPlaying selectedGenres={selectedGenres} onStatusChange={handleStatusChange} />
         <MovieAccordion {...movieCategories} />
@@ -61,7 +58,7 @@ function App() {
      
       <Footer />
     </div>
-    </>
+
   );
 }
 
