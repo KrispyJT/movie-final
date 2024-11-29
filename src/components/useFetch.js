@@ -3,69 +3,106 @@ import { myToken } from '../mykey';
 
 
 const useFetch = () => {
-  const [genres, setGenres] = useState(() => {
-    const savedGenres = localStorage.getItem('movieGenres');
-    return savedGenres ? JSON.parse(savedGenres) : null;
-  });
-
-  const [movies, setMovies] = useState(() => {
-    const savedMovies = localStorage.getItem('nowPlayingMovies');
-    return savedMovies ? JSON.parse(savedMovies) : null;
-  });
-
-  const isFetched = useRef(false);
-
-  // Helper function to fetch data
-  const fetchData = (url, setter, storageKey, responseKey) => {
-    fetch(url, {
-      method: 'GET',
-      headers: {
-        accept: 'application/json',
-        Authorization: `Bearer ${myToken}`, 
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Failed to fetch data. Status: ${response.status}`);
-        }
-        return response.json();
+    const [genres, setGenres] = useState(null);
+    const [movies, setMovies] = useState(null);
+    const isFetched = useRef(false);
+  
+    const fetchData = (url, setter, responseKey) => {
+      fetch(url, {
+        headers: {
+          accept: 'application/json',
+          Authorization: `Bearer ${myToken}`,
+        },
       })
-      .then((data) => {
-        const results = data[responseKey] || [];
-        setter(results); // Update state
-        localStorage.setItem(storageKey, JSON.stringify(results)); // Cache in localStorage
-      })
-      .catch((err) => console.error(`Error fetching ${storageKey}:`, err));
+        .then((response) => response.json())
+        .then((data) => setter(data[responseKey] || []))
+        .catch((err) => console.error(`Error fetching ${responseKey}:`, err));
+    };
+  
+    useEffect(() => {
+      if (!isFetched.current) {
+        fetchData('https://api.themoviedb.org/3/genre/movie/list', setGenres, 'genres');
+        fetchData('https://api.themoviedb.org/3/movie/now_playing', setMovies, 'results');
+        isFetched.current = true;
+      }
+    }, []);
+  
+    return { genres, movies };
   };
-
-  useEffect(() => {
-    if (isFetched.current) return;
-
-    // Fetch genres
-    if (!genres) {
-      fetchData(
-        'https://api.themoviedb.org/3/genre/movie/list?language=en-US', setGenres,'movieGenres', 'genres'
-      );
-    }
-
-    // Fetch now-playing movies
-    if (!movies) {
-      fetchData(
-        'https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1', setMovies, 'nowPlayingMovies', 'results'
-      );
-    }
-
-    isFetched.current = true; // Mark as fetched
-  }, [genres, movies]);
-
-  return { genres, movies };
-};
-
-export default useFetch;
+  
+  export default useFetch;
 
 
 
 
+
+
+// With localStorage caching
+
+// const useFetch = () => {
+//   const [genres, setGenres] = useState(() => {
+//     const savedGenres = localStorage.getItem('movieGenres');
+//     return savedGenres ? JSON.parse(savedGenres) : null;
+//   });
+
+//   const [movies, setMovies] = useState(() => {
+//     const savedMovies = localStorage.getItem('nowPlayingMovies');
+//     return savedMovies ? JSON.parse(savedMovies) : null;
+//   });
+
+//   const isFetched = useRef(false);
+
+//   // Helper function to fetch data
+//   const fetchData = (url, setter, storageKey, responseKey) => {
+//     fetch(url, {
+//       method: 'GET',
+//       headers: {
+//         accept: 'application/json',
+//         Authorization: `Bearer ${myToken}`, 
+//       },
+//     })
+//       .then((response) => {
+//         if (!response.ok) {
+//           throw new Error(`Failed to fetch data. Status: ${response.status}`);
+//         }
+//         return response.json();
+//       })
+//       .then((data) => {
+//         const results = data[responseKey] || [];
+//         setter(results); // Update state
+//         localStorage.setItem(storageKey, JSON.stringify(results)); // Cache in localStorage
+//       })
+//       .catch((err) => console.error(`Error fetching ${storageKey}:`, err));
+//   };
+
+//   useEffect(() => {
+//     if (isFetched.current) return;
+
+//     // Fetch genres
+//     if (!genres) {
+//       fetchData(
+//         'https://api.themoviedb.org/3/genre/movie/list?language=en-US', setGenres,'movieGenres', 'genres'
+//       );
+//     }
+
+//     // Fetch now-playing movies
+//     if (!movies) {
+//       fetchData(
+//         'https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1', setMovies, 'nowPlayingMovies', 'results'
+//       );
+//     }
+
+//     isFetched.current = true; // Mark as fetched
+//   }, [genres, movies]);
+
+//   return { genres, movies };
+// };
+
+// export default useFetch;
+
+
+
+// OLDEST VERSION
 // const useFetch = () => {
 //   const [genres, setGenres] = useState(() => {
 //     const savedGenres = localStorage.getItem('movieGenres');
