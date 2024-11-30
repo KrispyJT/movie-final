@@ -132,14 +132,14 @@
 // export default App;
 
 
-
+// LAST VERSION
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import Header from './components/Header';
 import GenresDropDown from './components/GenresDropDown';
 import NowPlaying from './components/NowPlaying';
-import MovieAccordion from './components/MovieAccordian';
+import MovieAccordion from './components/MovieAccordion';
 import Footer from './components/Footer';
 
 function App() {
@@ -210,3 +210,6 @@ function App() {
 }
 
 export default App;
+
+
+
