@@ -1,10 +1,12 @@
 import React from 'react';
 import useFetch from './useFetch';
 import MovieList from './MovieList';
+import { useState } from 'react';
 
 
 const NowPlaying = ({ selectedGenres, onStatusChange }) => {
   const { movies } = useFetch(); //  Call useFetch to get movies from the Now Playing API url
+  const [hoveredMovie, setHoveredMovie] = useState(null); // Track the hovered movie
 
   if (!movies) return <p>Loading movies...</p>; // Loading
 
@@ -13,10 +15,23 @@ const NowPlaying = ({ selectedGenres, onStatusChange }) => {
     ? movies.filter((movie) => movie.genre_ids.some((id) => selectedGenres.includes(id)))
     : movies;
 
+  const handeMovieHover = (movie) => {
+    setHoveredMovie(movie);
+  }; 
+
   return (
     <div className='now-playing-section'>
       <h3>Now Playing</h3>
-      <MovieList movies={filteredMovies} onStatusChange={onStatusChange} />
+      <MovieList 
+        movies={filteredMovies} 
+        onStatusChange={onStatusChange}
+        onMovieHover={handeMovieHover} />
+        {hoveredMovie && (
+         <div className='hover-details'>
+          <h4>{hoveredMovie.title}</h4>
+          <p>{hoveredMovie.overview}</p>
+          </div>
+          )}
     </div>
   );
 };

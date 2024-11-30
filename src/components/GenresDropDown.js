@@ -212,7 +212,7 @@ const GenresDropDown = ({ onGenresChange }) => {
 
   return (
     <div className="genres-dropdown">
-      <h3>Filter by Genre</h3>
+      <h2>Filter by Genre</h2>
       <FormControl sx={{ m: 1, width: 300 }}>
         <InputLabel id="genre-multi-select-label">Genres</InputLabel>
         <Select
