@@ -35,8 +35,6 @@ const MovieList = ({ movies, onStatusChange, onMovieHover }) => (
         sm={6}
         md={4}
         lg={3}
-        onMouseEnter={() => onMovieHover?.(movie)} // Trigger hover event
-        onMouseLeave={() => onMovieHover?.(null)} // Clear hover event
       >
         <MovieCard movie={movie} onStatusChange={onStatusChange} />
       </Col>

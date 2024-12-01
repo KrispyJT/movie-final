@@ -6,18 +6,13 @@ import { useState } from 'react';
 
 const NowPlaying = ({ selectedGenres, onStatusChange }) => {
   const { movies } = useFetch(); //  Call useFetch to get movies from the Now Playing API url
-  const [hoveredMovie, setHoveredMovie] = useState(null); // Track the hovered movie
 
   if (!movies) return <p>Loading movies...</p>; // Loading
 
   // Filter movies based on selected genres
   const filteredMovies = selectedGenres.length
     ? movies.filter((movie) => movie.genre_ids.some((id) => selectedGenres.includes(id)))
-    : movies;
-
-  const handeMovieHover = (movie) => {
-    setHoveredMovie(movie);
-  }; 
+    : movies; 
 
   return (
     <div className='now-playing-section'>
@@ -25,13 +20,7 @@ const NowPlaying = ({ selectedGenres, onStatusChange }) => {
       <MovieList 
         movies={filteredMovies} 
         onStatusChange={onStatusChange}
-        onMovieHover={handeMovieHover} />
-        {hoveredMovie && (
-         <div className='hover-details'>
-          <h4>{hoveredMovie.title}</h4>
-          <p>{hoveredMovie.overview}</p>
-          </div>
-          )}
+        />
     </div>
   );
 };
