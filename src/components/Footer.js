@@ -2,7 +2,7 @@
 import React from 'react';
 
 const Footer = () => (
-  <footer style={{ padding: '10px', textAlign: 'center', backgroundColor: '#0d253f', color: '#fff' }}>
+  <footer className='app-footer' style={{ padding: '10px', textAlign: 'center', backgroundColor: '#0d253f', color: '#fff' }}>
     <p>Data provided by:</p>
     <a href="https://www.themoviedb.org/" target="_blank" rel="noopener noreferrer">
       <img
@@ -16,3 +16,6 @@ const Footer = () => (
 );
 
 export default Footer;
+
+// Added the logo of The Movie Database (TMDB) and a link to their website in the footer
+// https://www.themoviedb.org/about/logos-attribution

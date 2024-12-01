@@ -4,12 +4,21 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Header from './components/Header';
 import GenresDropDown from './components/GenresDropDown';
+import SortMovies from './components/SortMovies';
 import NowPlaying from './components/NowPlaying';
 import MovieAccordion from './components/MovieAccordion';
 import Footer from './components/Footer';
 
+
+/**
+ * The main application component responsible for:
+ * - Managing the global state (movie categories, selected genres, sorting criteria).
+ * - Synchronizing movie categories with localStorage.
+ * - Rendering the main layout and components.
+ */
+
 function App() {
-  // Load movie categories from localStorage or initialize with empty arrays
+  // Load movie categories from localStorage or initialize with empty arrays (seen, want to see, and not interested)
   const [movieCategories, setMovieCategories] = useState(() => {
     const savedCategories = localStorage.getItem('movieCategories');
     return savedCategories
@@ -17,58 +26,70 @@ function App() {
       : { seenIt: [], wantToSee: [], notInterested: [] };
   });
 
-  const [selectedGenres, setSelectedGenres] = useState([]); // Tracks selected genres
+  // Manages the selected genres and sorting criteria using useState 
+  const [selectedGenres, setSelectedGenres] = useState([]);
+  const [sortCriteria, setSortCriteria] = useState('');
 
-  // Save movie categories to localStorage whenever they change
+
+// Synchoronize movie categories with localStorage whenever they change
   useEffect(() => {
     localStorage.setItem('movieCategories', JSON.stringify(movieCategories));
   }, [movieCategories]);
 
-  // Updates selected genres based on the user's selection
-  const handleGenresChange = (genres) => {
-    setSelectedGenres(genres);
-  };
 
-  // Updates movie categories based on user selection
+// Handler to update selected genres based on user selection 
+  const handleGenresChange = (genres) => setSelectedGenres(genres);
+
+// Handler to update movie categories when a movie's status changes (ensures the movie is only in one category at a time)
   const handleStatusChange = (title, status) => {
     setMovieCategories((prev) => {
+    // create a new object with updated categories
+    // Remove the movie from all categories and add it to the selected category
       const updatedCategories = {
-        seenIt: prev.seenIt.filter((movie) => movie !== title),
-        wantToSee: prev.wantToSee.filter((movie) => movie !== title),
-        notInterested: prev.notInterested.filter((movie) => movie !== title),
+        seenIt: prev.seenIt.filter((movie) => movie !== title), // remove movie from seenIt
+        wantToSee: prev.wantToSee.filter((movie) => movie !== title), // remove movie from wantToSee
+        notInterested: prev.notInterested.filter((movie) => movie !== title), // remove movie from notInterested
       };
+      // Add the movie to the selected category based on the status
       if (status === 'Seen It') updatedCategories.seenIt.push(title);
       if (status === 'Want to See') updatedCategories.wantToSee.push(title);
       if (status === 'Not Interested') updatedCategories.notInterested.push(title);
 
+      // Return the updated categories which updates the state
       return updatedCategories;
     });
   };
-
+  
+  // Handler to clear all movie categories and resets localStorage when user clicks the "Clear All" button
   const handleClearAll = () => {
     localStorage.removeItem('movieCategories');
     setMovieCategories({ seenIt: [], wantToSee: [], notInterested: [] });
   };
 
+  // Render the main layout and components
   return (
     <div className="App">
       <Header />
-      <div className="layout">
-        {/* Sidebar for Genre Filter */}
-        <aside className="sidebar">
-          <GenresDropDown onGenresChange={handleGenresChange} />
-        </aside>
+      <div className="container-fluid">
+        <div className="row mt-4">
+          {/* Sidebar for sorting and filtering */}
+          <aside className="col-md-3 col-sm-12 mb-4">
+            <GenresDropDown onGenresChange={handleGenresChange} />
+            <SortMovies sortCriteria={sortCriteria} setSortCriteria={setSortCriteria} />
+          </aside>
 
-        {/* Main Content */}
-        <main className="main-content">
-          <div className="movies-section">
-            <MovieAccordion {...movieCategories} onClearAll={handleClearAll} />
-            <NowPlaying
-              selectedGenres={selectedGenres}
-              onStatusChange={handleStatusChange}
-            />
-          </div>
-        </main>
+          {/* Main Content */}
+          <main className="col-md-9 col-sm-12">
+            <div className="movies-section">
+              <MovieAccordion {...movieCategories} onClearAll={handleClearAll} />
+              <NowPlaying
+                selectedGenres={selectedGenres}
+                onStatusChange={handleStatusChange}
+                sortCriteria={sortCriteria}
+              />
+            </div>
+          </main>
+        </div>
       </div>
       <Footer />
     </div>
@@ -76,6 +97,10 @@ function App() {
 }
 
 export default App;
+
+
+
+
 
 
 

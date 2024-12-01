@@ -67,11 +67,29 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-} */
+}  */
 
 /* Movies Section Styling */
 /* .movies-section {
   display: flex;
   flex-direction: column;
   gap: 20px;
+}  */
+
+/* .sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Space between components 
 } */
+
+/* .sort-movies {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+} */
+
+
+.now-playing-section {
+  margin-top: 20px; /* Adjust spacing as needed */
+}
+

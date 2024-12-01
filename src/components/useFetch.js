@@ -1,163 +1,68 @@
+// useFetch.js
+
 import { useState, useEffect, useRef } from 'react';
 import { myToken } from '../mykey'; 
 
+/**
+ * useFetch:
+ * - Fetches genres and movies from The Movie Database (TMDb) API.
+ * - Uses the API token for authorization.
+ * - Ensures data is fetched only once during the component's lifecycle.
+ * - Returns genres and movies data.
+ * 
+ * @returns {Object} - { genres, movies }
+ * genres: Array of genre objects
+ * movies: Array of movie objects
+ * 
+ * References:
+ * TMDb API Now Playing: https://developer.themoviedb.org/reference/movie-now-playing-list
+ * TMDb API Genre List: https://developer.themoviedb.org/reference/genre-movie-list
+ * 
+ */
 
 const useFetch = () => {
-    const [genres, setGenres] = useState(null);
-    const [movies, setMovies] = useState(null);
-    const isFetched = useRef(false);
-  
-    const fetchData = (url, setter, responseKey) => {
-      fetch(url, {
-        headers: {
-          accept: 'application/json',
-          Authorization: `Bearer ${myToken}`,
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => setter(data[responseKey] || []))
-        .catch((err) => console.error(`Error fetching ${responseKey}:`, err));
+  // States to store genres and movies data
+  const [genres, setGenres] = useState(null);  // list of genres
+  const [movies, setMovies] = useState(null); // list of movies
+  const isFetched = useRef(false); // useRef to track if data is fetched
+
+ // Helper function to fetch data from the API
+  const fetchData = (url, setter, responseKey) => {
+    fetch(url, {
+      headers: {
+        accept: 'application/json',         // specifies the format of the response 
+        Authorization: `Bearer ${myToken}`, // uses the API for authorization
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => setter(data[responseKey] || []))
+      .catch((err) => console.error(`Error fetching ${responseKey}:`, err));
     };
-  
+
+
+  // Fetch genres and movies on initial render only 
     useEffect(() => {
       if (!isFetched.current) {
-        fetchData('https://api.themoviedb.org/3/genre/movie/list', setGenres, 'genres');
-        fetchData('https://api.themoviedb.org/3/movie/now_playing', setMovies, 'results');
-        isFetched.current = true;
+        fetchData('https://api.themoviedb.org/3/genre/movie/list?language=en-US', setGenres, 'genres');
+        fetchData('https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1', setMovies, 'results');
+        isFetched.current = true; // marks data as fetched to prevent re-fetching
       }
-    }, []);
+    }, []);  // dependency array ensures the effect runs only once during the initial render
+
+/**
+  Why useRef here?
+  * - isFetched ensures the API requests are made only once during the component's lifecycle.
+  * - Unlike state, useRef doesn't trigger a re-render when its value changes.
+  * - This is crucial here because we want to avoid re-fetching data unnecessarily during re-renders.
+    
+  Why useEffect here?
+  * - useEffect ensures that the API requests are triggered only once when the component mounts.
+  * - By using the dependency array (`[]`), the effect runs only during the initial render.
+  * - It also provides a clean way to organize asynchronous side effects, like fetching data from an API.
+*/
   
-    return { genres, movies };
+    return { genres, movies }; // returns genres and movies data
   };
   
   export default useFetch;
 
-
-
-
-
-
-// With localStorage caching
-
-// const useFetch = () => {
-//   const [genres, setGenres] = useState(() => {
-//     const savedGenres = localStorage.getItem('movieGenres');
-//     return savedGenres ? JSON.parse(savedGenres) : null;
-//   });
-
-//   const [movies, setMovies] = useState(() => {
-//     const savedMovies = localStorage.getItem('nowPlayingMovies');
-//     return savedMovies ? JSON.parse(savedMovies) : null;
-//   });
-
-//   const isFetched = useRef(false);
-
-//   // Helper function to fetch data
-//   const fetchData = (url, setter, storageKey, responseKey) => {
-//     fetch(url, {
-//       method: 'GET',
-//       headers: {
-//         accept: 'application/json',
-//         Authorization: `Bearer ${myToken}`, 
-//       },
-//     })
-//       .then((response) => {
-//         if (!response.ok) {
-//           throw new Error(`Failed to fetch data. Status: ${response.status}`);
-//         }
-//         return response.json();
-//       })
-//       .then((data) => {
-//         const results = data[responseKey] || [];
-//         setter(results); // Update state
-//         localStorage.setItem(storageKey, JSON.stringify(results)); // Cache in localStorage
-//       })
-//       .catch((err) => console.error(`Error fetching ${storageKey}:`, err));
-//   };
-
-//   useEffect(() => {
-//     if (isFetched.current) return;
-
-//     // Fetch genres
-//     if (!genres) {
-//       fetchData(
-//         'https://api.themoviedb.org/3/genre/movie/list?language=en-US', setGenres,'movieGenres', 'genres'
-//       );
-//     }
-
-//     // Fetch now-playing movies
-//     if (!movies) {
-//       fetchData(
-//         'https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1', setMovies, 'nowPlayingMovies', 'results'
-//       );
-//     }
-
-//     isFetched.current = true; // Mark as fetched
-//   }, [genres, movies]);
-
-//   return { genres, movies };
-// };
-
-// export default useFetch;
-
-
-
-// OLDEST VERSION
-// const useFetch = () => {
-//   const [genres, setGenres] = useState(() => {
-//     const savedGenres = localStorage.getItem('movieGenres');
-//     return savedGenres ? JSON.parse(savedGenres) : null;
-//   });
-
-//   const [movies, setMovies] = useState(() => {
-//     const savedMovies = localStorage.getItem('nowPlayingMovies');
-//     return savedMovies ? JSON.parse(savedMovies) : null;
-//   });
-
-//   useEffect(() => {
-//     // Fetch genres
-//     const fetchGenres = () => {
-//       if (genres) return; // Skip if genres are already in state/localStorage
-
-//       fetch('https://api.themoviedb.org/3/genre/movie/list?language=en-US', {
-//         method: 'GET',
-//         headers: {
-//           accept: 'application/json',
-//           Authorization: `Bearer ${myToken}`, // Replace with your TMDB token
-//         },
-//       })
-//         .then((response) => response.json())
-//         .then((data) => {
-//           setGenres(data.genres || []); // Update state
-//           localStorage.setItem('movieGenres', JSON.stringify(data.genres || [])); // Cache in localStorage
-//         })
-//         .catch((err) => console.error('Error fetching genres:', err));
-//     };
-
-//     // Fetch now playing movies
-//     const fetchMovies = () => {
-//       if (movies) return; // Skip if movies are already in state/localStorage
-
-//       fetch('https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1', {
-//         method: 'GET',
-//         headers: {
-//           accept: 'application/json',
-//           Authorization: `Bearer ${myToken}`, // Replace with your TMDB token
-//         },
-//       })
-//         .then((response) => response.json())
-//         .then((data) => {
-//           setMovies(data.results || []); // Update state
-//           localStorage.setItem('nowPlayingMovies', JSON.stringify(data.results || [])); // Cache in localStorage
-//         })
-//         .catch((err) => console.error('Error fetching movies:', err));
-//     };
-
-//     fetchGenres(); // Fetch genres
-//     fetchMovies(); // Fetch now playing movies
-//   }, [genres, movies]);
-
-//   return { genres, movies };
-// };
-
-// export default useFetch;
