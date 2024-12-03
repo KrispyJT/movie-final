@@ -10,9 +10,7 @@ import MovieList from './MovieList';
  * - Sorts movies based on the selected criteria.
  * - Displays a list of sorted and filtered movies using the MovieList.
  *
- * 
- * 
- * See: https://developer.themoviedb.org/reference/movie-now-playing-list
+ * TMDb API Now Playing: https://developer.themoviedb.org/reference/movie-now-playing-list
  */
 
 const NowPlaying = ({ selectedGenres, onStatusChange, sortCriteria }) => {
