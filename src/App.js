@@ -15,16 +15,17 @@ import Footer from './components/Footer';
  * - Managing the global state (movie categories, selected genres, sorting criteria).
  * - Synchronizing movie categories with localStorage.
  * - Rendering the main layout and components.
+ * 
  */
 
 function App() {
   // Load movie categories from localStorage or initialize with empty arrays (seen, want to see, and not interested)
-  const [movieCategories, setMovieCategories] = useState(() => {
+  const [movieCategories, setMovieCategories] = useState(() => { 
     const savedCategories = localStorage.getItem('movieCategories');
     return savedCategories
-      ? JSON.parse(savedCategories)
-      : { seenIt: [], wantToSee: [], notInterested: [] };
-  });
+      ? JSON.parse(savedCategories) 
+      : { seenIt: [], wantToSee: [], notInterested: [] }; 
+  }); 
 
   // Manages the selected genres and sorting criteria using useState 
   const [selectedGenres, setSelectedGenres] = useState([]);
@@ -75,7 +76,7 @@ function App() {
           {/* Sidebar for sorting and filtering */}
           <aside className="col-md-3 col-sm-12 mb-4">
             <GenresDropDown onGenresChange={handleGenresChange} />
-            <SortMovies sortCriteria={sortCriteria} setSortCriteria={setSortCriteria} />
+            <SortMovies sortCriteria={sortCriteria} setSortCriteria={setSortCriteria} /> 
           </aside>
 
           {/* Main Content */}

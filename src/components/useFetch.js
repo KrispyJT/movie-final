@@ -35,7 +35,7 @@ const useFetch = () => {
       },
     })
       .then((response) => response.json())
-      .then((data) => setter(data[responseKey] || []))
+      .then((data) => setter(data[responseKey] || [])) 
       .catch((err) => console.error(`Error fetching ${responseKey}:`, err));
     };
 
@@ -43,14 +43,14 @@ const useFetch = () => {
   // Fetch genres and movies on initial render only 
     useEffect(() => {
       if (!isFetched.current) {
-        fetchData('https://api.themoviedb.org/3/genre/movie/list?language=en-US', setGenres, 'genres');
-        fetchData('https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1', setMovies, 'results');
+        fetchData('https://api.themoviedb.org/3/genre/movie/list?language=en-US', setGenres, 'genres'); // fetches genres and sets the state
+        fetchData('https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1', setMovies, 'results'); // fetches movies and sets the state
         isFetched.current = true; // marks data as fetched to prevent re-fetching
       }
     }, []);  // dependency array ensures the effect runs only once during the initial render
 
 /**
-  Why useRef here?
+  Why use useRef here?
   * - isFetched ensures the API requests are made only once during the component's lifecycle.
   * - Unlike state, useRef doesn't trigger a re-render when its value changes.
   * - This is crucial here because we want to avoid re-fetching data unnecessarily during re-renders.

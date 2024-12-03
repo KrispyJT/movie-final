@@ -9,6 +9,7 @@ import MovieCard from './MovieCard';
  * MovieList Component:
  * - Displays the list of movies in a grid layout.
  * - Passes movie data to the MovieCard for rendering.
+ * - Handles status changes for each movie..
  * 
  * @param {Array} movies - List of movies to display
  * @param {Function} onStatusChange - Callback function to handle status changes

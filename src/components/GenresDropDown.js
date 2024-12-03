@@ -22,7 +22,10 @@ import useFetch from './useFetch';
  * 
  * Mui installation: https://mui.com/material-ui/getting-started/installation/
  * MUI Select: https://mui.com/material-ui/react-select/
+ * 
  * @param {Function} onGenresChange - Callback function to handle genre changes
+ * 
+ * 
  */
 
 
@@ -41,7 +44,7 @@ const MenuProps = {
 
 const GenresDropDown = ( { onGenresChange } ) => {
   const { genres } = useFetch(); // Fetch genres from useFetch 
-  const [selectedGenres, setSelectedGenres] = useState([]); // Tracks selected genres
+  const [selectedGenres, setSelectedGenres] = useState([]); // Tracks selected genres in state 
 
 
 // Handler for dropdrown change and updates the selected genres
@@ -71,19 +74,19 @@ const GenresDropDown = ( { onGenresChange } ) => {
           multiple
           value={selectedGenres} // Track selected genres
           onChange={handleChange} // Handle dropdown change
-          input={<OutlinedInput label="Genres" />}
-          renderValue={(selected) =>
+          input={<OutlinedInput label="Genres" />} 
+          renderValue={(selected) => 
             selected
-              .map((id) => genres.find((genre) => genre.id === id)?.name) // To map genre IDs to names
-              .join(', ') || 'Select genres'
+              .map((id) => genres.find((genre) => genre.id === id)?.name)  // To map genre IDs to names 
+              .join(', ') || 'Select genres'                              // Join selected genres with a comma
           }
-          MenuProps={MenuProps}
+          MenuProps={MenuProps} 
         >
           {genres.map((genre) => (
-            <MenuItem key={genre.id} value={genre.id}>
-              <Checkbox checked={selectedGenres.includes(genre.id)} />
-              <ListItemText primary={genre.name} />
-            </MenuItem>
+            <MenuItem key={genre.id} value={genre.id}>                    {/* Map over genres and create a MenuItem for each */}
+              <Checkbox checked={selectedGenres.includes(genre.id)} />    {/* Checkbox to indicate selected genres */}
+              <ListItemText primary={genre.name} />                      {/* Display genre name */}
+            </MenuItem> 
           ))}
         </Select>
       </FormControl>

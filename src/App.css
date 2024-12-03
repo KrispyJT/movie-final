@@ -94,26 +94,26 @@
 }
 
 
-.movie-card {
+/* .movie-card {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 25px;
   padding: 10px;
   border-radius: 8px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   background-color: #fff;
-}
+} */
 
-.movie-card img {
+/* .movie-card img {
   border-radius: 8px;
-}
+} */
 
-.now-playing-section {
+/* .now-playing-section {
   display: flex;
   flex-direction: column;
   gap: 20px;
-}
+} */
 
-.now-playing-section h2 {
+/* .now-playing-section h2 {
   margin: 0;
-}
+} */

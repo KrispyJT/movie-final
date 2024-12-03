@@ -14,7 +14,7 @@ import Accordion from 'react-bootstrap/Accordion';
  * @param {Array} notInterested - List of movies the user is not interested in
  * @param {Function} onClearAll - Callback function to clear all movie categories
  *  
- * See: https://react-bootstrap.netlify.app/docs/components/accordion/
+ * Accordian: https://react-bootstrap.netlify.app/docs/components/accordion/
  * 
  */
 
@@ -47,10 +47,10 @@ const MovieAccordion = ({ seenIt, wantToSee, notInterested, onClearAll }) => {
           </Accordion.Header>
           <Accordion.Body>
             <ul>
-              {seenIt.length > 0 ? (
-                seenIt.map((title) => <li key={title}>{title}</li>)
+              {seenIt.length > 0 ? (                                // Conditional rendering based on the length of seenIt array
+                seenIt.map((title) => <li key={title}>{title}</li>) // Maps over the seenIt array and displays each movie title
               ) : (
-                <p>No movies in this category yet.</p>
+                <p>No movies in this category yet.</p> 
               )}
             </ul>
           </Accordion.Body>
@@ -63,8 +63,8 @@ const MovieAccordion = ({ seenIt, wantToSee, notInterested, onClearAll }) => {
           </Accordion.Header>
           <Accordion.Body>
             <ul>
-              {wantToSee.length > 0 ? (
-                wantToSee.map((title) => <li key={title}>{title}</li>)
+              {wantToSee.length > 0 ? (                           // Conditional rendering based on the length of wantToSee array
+                wantToSee.map((title) => <li key={title}>{title}</li>)  // Maps over the wantToSee array and displays each movie title
               ) : (
                 <p>No movies in this category yet.</p>
               )}
@@ -79,8 +79,8 @@ const MovieAccordion = ({ seenIt, wantToSee, notInterested, onClearAll }) => {
           </Accordion.Header>
           <Accordion.Body>
             <ul>
-              {notInterested.length > 0 ? (
-                notInterested.map((title) => <li key={title}>{title}</li>)
+              {notInterested.length > 0 ? (                     // Conditional rendering based on the length of notInterested array
+                notInterested.map((title) => <li key={title}>{title}</li>)    // Maps over the notInterested array and displays each movie title
               ) : (
                 <p>No movies in this category yet.</p>
               )}
