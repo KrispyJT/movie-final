@@ -7,8 +7,8 @@ import Button from 'react-bootstrap/Button';
 
 /**
  * MovieCard Component:
- * - Displays movie details (movie poster, title, release date, rating, overview).
- * - Includes buttons to categorize movies as Seen It, Want to See, or Not Interested.
+ * - Displays individual movie details (movie poster, title, release date, rating, overview).
+ * - Includes buttons in card to categorize movies as Seen It, Want to See, or Not Interested.
  * - Adds a "Show More" button to toggle the full overview.
  * 
  * @param {Object} movie - Movie data to display
@@ -18,8 +18,8 @@ import Button from 'react-bootstrap/Button';
  * See: https://developer.themoviedb.org/docs/image-basics
  */
 
-const MovieCard = ({ movie, onStatusChange }) => {
-  const { title, overview, poster_path, release_date, vote_average } = movie; // destructuring movie object
+const MovieCard = ({ movie, onStatusChange }) => { 
+  const { title, overview, poster_path, release_date, vote_average } = movie; // destructuring movie object from MovieList component props
 
   // Creates the poster URL using the base URL and poster path from the movie object
   const posterUrl = poster_path

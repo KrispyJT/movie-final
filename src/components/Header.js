@@ -3,7 +3,7 @@ import React from 'react';
 
 /**
  * Header:
- * - Displays the header component for the application.
+ * - Displays the header component.
  * @returns The header component for the application.
  */
 

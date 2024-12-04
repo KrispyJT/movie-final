@@ -11,11 +11,18 @@ import Footer from './components/Footer';
 
 
 /**
- * The main application component responsible for:
- * - Managing the global state (movie categories, selected genres, sorting criteria).
- * - Synchronizing movie categories with localStorage.
- * - Rendering the main layout and components.
+ * Main Hub for the Movie Explorer App:
+ * - Manages the global state (movie categories [seen it, want to see, not interested], selected genres, sorting criteria).
+ * - Connects all components together by passing props and handling events.
+ * - Movie categories are stored in localStorage to persist data.
  * 
+ * @returns {JSX.Element} - Main App component
+ * 
+ * References:
+ * - React useState: https://reactjs.org/docs/hooks-state.html
+ * - React useEffect: https://reactjs.org/docs/hooks-effect.html
+ * - LocalStorage: https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
+ * - Bootstrap: https://react-bootstrap.github.io/layout/grid
  */
 
 function App() {

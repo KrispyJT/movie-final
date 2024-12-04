@@ -7,8 +7,9 @@ import { myToken } from '../mykey';
  * useFetch:
  * - Fetches genres and movies from The Movie Database (TMDb) API.
  * - Uses the API token for authorization.
- * - Ensures data is fetched only once during the component's lifecycle.
+ * - Ensures data is fetched only once to prevent re-fetching.
  * - Returns genres and movies data.
+ * 
  * 
  * @returns {Object} - { genres, movies }
  * genres: Array of genre objects

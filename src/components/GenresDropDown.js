@@ -11,14 +11,12 @@ import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
 import useFetch from './useFetch';
 
-
-
-
 /**
  * GenresDropDown Component:
  * - Fetches available genres using useFetch
- * - Allows users to select multiple genres for filtering movies.
- * - Communicates selected genres to the parent component via onGenresChange.
+ * - Allows users to select multiple genres for filtering movies (Action, Comedy, Drama, etc.)
+ * - Communicates selected genres to the parent component via onGenresChange callback. 
+ * - Uses MUI components for styling and functionality (Select, MenuItem, Checkbox, etc.)
  * 
  * Mui installation: https://mui.com/material-ui/getting-started/installation/
  * MUI Select: https://mui.com/material-ui/react-select/
@@ -43,13 +41,13 @@ const MenuProps = {
 
 
 const GenresDropDown = ( { onGenresChange } ) => {
-  const { genres } = useFetch(); // Fetch genres from useFetch 
-  const [selectedGenres, setSelectedGenres] = useState([]); // Tracks selected genres in state 
+  const { genres } = useFetch(); // Fetch genres from useFetch using custom hook
+  const [selectedGenres, setSelectedGenres] = useState([]); // Tracks selected genres in state
 
 
 // Handler for dropdrown change and updates the selected genres
   const handleChange = (event) => {
-    const { value } = event.target;
+    const { value } = event.target; 
     setSelectedGenres(() =>
       typeof value === 'string' ? value.split(',') : value
     );

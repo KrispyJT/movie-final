@@ -9,6 +9,10 @@ import MovieList from './MovieList';
  * - Filters movies based on selected genres.
  * - Sorts movies based on the selected criteria.
  * - Displays a list of sorted and filtered movies using the MovieList.
+ * 
+ * @param {Array} selectedGenres - Array of selected genre IDs
+ * @param {Function} onStatusChange - Callback function to handle movie status changes
+ * @param {String} sortCriteria - Criteria to sort movies by (rating, releaseDate, popularity)
  *
  * TMDb API Now Playing: https://developer.themoviedb.org/reference/movie-now-playing-list
  */
